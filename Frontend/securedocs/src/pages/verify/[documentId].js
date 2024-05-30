@@ -73,13 +73,21 @@ function DocumentVerification() {
     if (receipt.status === 1) {
       console.log("Transaction successful");
     }
+    const tokenId = receipt.events[0].topics[3];
+    console.log(tokenId);
+    console.log(Number(tokenId));
     try {
       const response = await fetch("/api/document/verify", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ documentId, newStatus: "validé" }),
+        body: JSON.stringify({
+          documentId,
+          newStatus: "validé",
+          verifiedBy: address,
+          tokenId: Number(tokenId),
+        }),
       });
       if (!response.ok) {
         throw new Error("Failed to verify document");
