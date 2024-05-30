@@ -42,8 +42,6 @@ function DocumentVerification() {
     }
   }, [documentId]);
 
-  console.log(document);
-
   const handleVerifyDocument = async () => {
     setLoadingButton(true);
     const contract = new ethers.Contract(
@@ -70,12 +68,7 @@ function DocumentVerification() {
     if (receipt.status != 1) {
       setError("Transaction failed");
     }
-    if (receipt.status === 1) {
-      console.log("Transaction successful");
-    }
     const tokenId = receipt.events[0].topics[3];
-    console.log(tokenId);
-    console.log(Number(tokenId));
     try {
       const response = await fetch("/api/document/verify", {
         method: "PATCH",
