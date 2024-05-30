@@ -86,6 +86,7 @@ function DocumentVerification() {
         throw new Error("Failed to verify document");
       }
       const updatedDocument = await response.json();
+      console.log(updatedDocument);
       setDocument(updatedDocument);
     } catch (error) {
       console.error(error);

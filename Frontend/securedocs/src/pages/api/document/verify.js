@@ -11,9 +11,7 @@ export default async function handler(req, res) {
       const { documentId, newStatus, verifiedBy, tokenId } = req.body;
       const updatedDocument = await Document.findByIdAndUpdate(
         documentId,
-        { status: newStatus },
-        { verifiedBy: verifiedBy },
-        { tokenId: tokenId },
+        { status: newStatus, verifiedBy: verifiedBy, tokenId: tokenId },
         { new: true }
       );
       if (!updatedDocument) {
