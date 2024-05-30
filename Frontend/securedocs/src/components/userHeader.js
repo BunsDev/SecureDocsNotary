@@ -24,10 +24,10 @@ const UserHeader = () => {
               Home
             </a>
             <a
-              href="/profil"
+              href="/account"
               className="text-sm font-semibold text-gray-600 hover:text-gray-800"
             >
-              Profil
+              Account
             </a>
             <a
               href="/dashboard"

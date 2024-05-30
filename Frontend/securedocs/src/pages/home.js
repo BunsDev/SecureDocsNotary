@@ -53,6 +53,8 @@ function Home() {
     const filterDocs = () => {
       let filtered = documents;
 
+      filtered = filtered.filter((doc) => doc.status === "en attente");
+
       if (searchTerm) {
         filtered = filtered.filter(
           (doc) =>
