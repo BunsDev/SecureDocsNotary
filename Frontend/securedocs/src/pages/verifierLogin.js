@@ -17,7 +17,7 @@ function VerifierLogin() {
   }
 
   if (verifier !== null) {
-    router.push("/verifierDashboard");
+    router.push("/home");
   }
 
   useEffect(() => {

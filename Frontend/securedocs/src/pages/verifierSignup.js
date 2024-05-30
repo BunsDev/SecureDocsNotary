@@ -42,7 +42,7 @@ function VerifierSignup() {
         body: JSON.stringify(formData),
       });
       if (res.status === 201) {
-        router.push("/verifierDashboard");
+        router.push("/home");
       } else {
         console.error("Verifier not created");
       }

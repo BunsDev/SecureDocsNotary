@@ -25,6 +25,7 @@ export const Web3AuthProvider = ({ children }) => {
   const [web3auth, setWeb3Auth] = useState(null);
   const [provider, setProvider] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [signer, setSigner] = useState(null);
   const [user, setUser] = useState(null);
   const [address, setAddress] = useState(null);
   const [email, setEmail] = useState(null);
@@ -54,6 +55,7 @@ export const Web3AuthProvider = ({ children }) => {
           const userAddress = await signer.getAddress();
           const userInfo = await web3authInstance.getUserInfo();
           const userEmail = userInfo.email;
+          setSigner(signer);
           setUser(userInfo);
           setAddress(userAddress);
           setEmail(userEmail);
@@ -100,6 +102,7 @@ export const Web3AuthProvider = ({ children }) => {
         const userAddress = await signer.getAddress();
         const userInfo = await web3auth.getUserInfo();
         const userEmail = userInfo.email;
+        setSigner(signer);
         setAddress(userAddress);
         setEmail(userEmail);
         setLoggedIn(true);
@@ -120,6 +123,7 @@ export const Web3AuthProvider = ({ children }) => {
         return;
       }
       await web3auth.logout();
+      setSigner(null);
       setProvider(null);
       setLoggedIn(false);
       setAddress(null);
@@ -147,6 +151,7 @@ export const Web3AuthProvider = ({ children }) => {
   const props = {
     provider,
     loggedIn,
+    signer,
     address,
     email, // Assurez-vous que l'email est inclus dans les props
     connect,
