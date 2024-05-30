@@ -94,6 +94,7 @@ function DocumentVerification() {
     setSuccess(true);
     setLoadingButton(false);
   };
+
   const renderFile = (fileData, fileName) => {
     const fileExtension = fileName.split(".").pop().toLowerCase();
     if (["jpg", "jpeg", "png", "gif", "webp"].includes(fileExtension)) {
