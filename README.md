@@ -69,9 +69,14 @@ Open your browser and navigate to http://localhost:3000 to see the application i
    - Click on the login option to authenticate using Web3Auth.
 
 2. **Authentication Check**
+
    - After logging in, the application will check if you have an account in the database.
    - If your account exists, you will be redirected to the home page (`home.js`).
    - If you do not have an account, you will be redirected to the sign-up page (`verifierSignup.js`).
+
+3. **KYC**
+
+   - KYC are done manualy, you will need to whitelist the user directly on the smart-contract `SecureVaultFactory.sol` with the function `registerVerifier(address verifier, string memory name)`
 
 ### Verifying Documents
 
