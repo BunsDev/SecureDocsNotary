@@ -42,8 +42,6 @@ function DocumentVerification() {
     }
   }, [documentId]);
 
-  console.log(document);
-
   const handleVerifyDocument = async () => {
     setLoadingButton(true);
     const contract = new ethers.Contract(
@@ -70,21 +68,31 @@ function DocumentVerification() {
     if (receipt.status != 1) {
       setError("Transaction failed");
     }
-    if (receipt.status === 1) {
-      console.log("Transaction successful");
+    var id;
+    if (receipt.events.length === 5) {
+      id = receipt.events[3].topics[3];
+    } else {
+      id = receipt.events[0].topics[3];
     }
+    const tokenId = id;
     try {
       const response = await fetch("/api/document/verify", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ documentId, newStatus: "validé" }),
+        body: JSON.stringify({
+          documentId,
+          newStatus: "validé",
+          verifiedBy: address,
+          tokenId: Number(tokenId),
+        }),
       });
       if (!response.ok) {
         throw new Error("Failed to verify document");
       }
       const updatedDocument = await response.json();
+      console.log(updatedDocument);
       setDocument(updatedDocument);
     } catch (error) {
       console.error(error);
@@ -93,6 +101,7 @@ function DocumentVerification() {
     setSuccess(true);
     setLoadingButton(false);
   };
+
   const renderFile = (fileData, fileName) => {
     const fileExtension = fileName.split(".").pop().toLowerCase();
     if (["jpg", "jpeg", "png", "gif", "webp"].includes(fileExtension)) {
