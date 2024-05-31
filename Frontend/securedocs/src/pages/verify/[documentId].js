@@ -68,7 +68,13 @@ function DocumentVerification() {
     if (receipt.status != 1) {
       setError("Transaction failed");
     }
-    const tokenId = receipt.events[0].topics[3];
+    var id;
+    if (receipt.events.length === 5) {
+      id = receipt.events[3].topics[3];
+    } else {
+      id = receipt.events[0].topics[3];
+    }
+    const tokenId = id;
     try {
       const response = await fetch("/api/document/verify", {
         method: "PATCH",
