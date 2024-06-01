@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageLayout from "../components/pageLayout";
 import { useWeb3Auth } from "../context/web3AuthContext";
 import { useRouter } from "next/router";
 
 function VerifierSignup() {
   const router = useRouter();
-  const { connect, user, address } = useWeb3Auth();
+  const { connect, email, address } = useWeb3Auth();
   const [formData, setFormData] = useState({
     wallet: "",
     occupation: "Notary",
@@ -22,8 +22,8 @@ function VerifierSignup() {
     setFormData({ ...formData, wallet: address });
   }
 
-  if (user.email && formData.email !== user.email) {
-    setFormData({ ...formData, email: user.email });
+  if (email && formData.email !== email) {
+    setFormData({ ...formData, email: email });
   }
 
   if (address === null) {
@@ -103,7 +103,7 @@ function VerifierSignup() {
               className="p-2 border border-gray-300 rounded-md md:w-3/4"
             />
           </div>
-          {user.email == null && (
+          {email == undefined && (
             <div className="flex flex-col mb-2 md:flex-row md:items-center">
               <label className="md:w-1/4 min-w-max">E-mail:</label>
               <input

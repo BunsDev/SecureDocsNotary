@@ -4,7 +4,6 @@ import { CHAIN_NAMESPACES, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
-import axios from "axios";
 
 const Web3AuthContext = createContext();
 
@@ -60,9 +59,6 @@ export const Web3AuthProvider = ({ children }) => {
           setAddress(userAddress);
           setEmail(userEmail);
           setLoggedIn(true);
-
-          // Enregistrer l'utilisateur dans la BDD
-          // await registerUser(userAddress, userEmail);
         }
       } catch (error) {
         console.error(error);
@@ -73,17 +69,6 @@ export const Web3AuthProvider = ({ children }) => {
 
     init();
   }, []);
-
-  const registerUser = async (userAddress, email) => {
-    try {
-      await axios.post("/api/register", {
-        wallet: userAddress,
-        email: email,
-      });
-    } catch (error) {
-      console.error("Error registering user:", error);
-    }
-  };
 
   const connect = async () => {
     try {
@@ -106,10 +91,6 @@ export const Web3AuthProvider = ({ children }) => {
         setAddress(userAddress);
         setEmail(userEmail);
         setLoggedIn(true);
-
-        // Enregistrer l'utilisateur dans la BDD
-        // await registerUser(userAddress, userEmail);
-        // router.push("/account"); // Rediriger après connexion
       }
     } catch (error) {
       console.error(error);
