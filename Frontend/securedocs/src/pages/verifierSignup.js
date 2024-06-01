@@ -19,7 +19,11 @@ function VerifierSignup() {
   });
 
   if (address && formData.wallet !== address) {
-    setFormData({ ...formData, wallet: address, email: user.email });
+    setFormData({ ...formData, wallet: address });
+  }
+
+  if (user.email && formData.email !== user.email) {
+    setFormData({ ...formData, email: user.email });
   }
 
   if (address === null) {
@@ -99,6 +103,19 @@ function VerifierSignup() {
               className="p-2 border border-gray-300 rounded-md md:w-3/4"
             />
           </div>
+          {user.email == null && (
+            <div className="flex flex-col mb-2 md:flex-row md:items-center">
+              <label className="md:w-1/4 min-w-max">E-mail:</label>
+              <input
+                type="text"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="p-2 border border-gray-300 rounded-md md:w-3/4"
+              />
+            </div>
+          )}
           <div className="flex flex-col mb-2 md:flex-row md:items-center">
             <label className="md:w-1/4 min-w-max">Phone Number:</label>
             <input
